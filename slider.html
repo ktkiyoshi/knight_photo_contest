@@ -1,0 +1,6 @@
+<div class="slider">
+    <p ng-repeat="image in images">
+        <span class="fade" ng-bind="'By ' + image.title" ng-show="image.visible"></span>
+        <img class="fade" ng-src="slideImg/{{image.src}}" ng-show="image.visible" />
+    </p>
+</div>

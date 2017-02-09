@@ -1,0 +1,4 @@
+*.sublime*
+asset/*.jpg
+contest/
+json/

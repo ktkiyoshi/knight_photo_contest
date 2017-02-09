@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja" ng-app="MyApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Top3 - Shunsuke &amp; Chihiro Wedding -</title>
+    <link rel="stylesheet" type="text/css" href="asset/reset.css">
+    <link rel="stylesheet" type="text/css" href="asset/style.css">
+    <script src="bower_components/angular/angular.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="bower_components/angular-animate/angular-animate.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="bower_components/angular-resource/angular-resource.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="asset/script.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body ng-controller="top3Controller" ng-init="start = true">
+    <div class="start" ng-if="start">
+        <img src="asset/result.JPG" ng-click="onStart()" />
+        <p>『さあ、フォトコンテストの結果を発表するよ。』</p>
+    </div>
+
+    <div ng-if="top">
+        <ul class="top3">
+            <li class="eachTop3" ng-repeat="(key, value) in contests">
+                <p><span class="prize">"{{key}}"</span> AWARD</p>
+                <p ng-click="getResult(key,0)"><span class="link">優勝</span></p>
+                <p ng-click="getResult(key,1)"><span class="link">2位 ／ 3位</span></p>
+            </li>
+        </ul>
+        <p class="listShow" ng-click="showResultAll()">2位/3位を一覧で見る</p>
+    </div>
+
+    <div ng-if="show">
+        <ul class="top3">
+            <li class="eachTop3 result" ng-repeat="(key, value) in contests">
+                <p><span class="prize">"{{key}}"</span> AWARD</p>
+                <p><span>2位 ／ 3位</span></p>
+                <p>{{value[1]['title']}} ／ {{value[2]['title']}}</p>
+                <img width="45%" ng-src="contest/{{key}}/2/{{value[1]['src']}}" />
+                <img width="45%" ng-src="contest/{{key}}/3/{{value[2]['src']}}" />
+            </li>
+        </ul>
+    </div>
+
+    <div class="result top" ng-if="!top && first">
+        <p>"{{award}}" AWARD</p>
+        <div class="champion">
+            <p ng-bind="'優勝『' + first.title + 'さん』'"></p>
+            <img ng-src="contest/{{award}}/1/{{first.src}}" ng-click="backToList()" />
+        </div>
+    </div>
+    <div class="result" ng-if="!top && second">
+        <p>"{{award}}" AWARD</p>
+        <div class="half">
+            <p>2位</p>
+            <p ng-bind="second.title + 'さん'"></p>
+            <img ng-src="contest/{{award}}/2/{{second.src}}" ng-click="backToList()" />
+        </div>
+        <div class="half">
+            <p>3位</p>
+            <p ng-bind="third.title + 'さん'"></p>
+            <img ng-src="contest/{{award}}/3/{{third.src}}" ng-click="backToList()" />
+        </div>
+    </div>
+</body>
+</html>
